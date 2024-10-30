@@ -11,46 +11,23 @@ $result = $conn->query($sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Address Records</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            width: 80%;
-            margin: 50px auto;
-        }
-        h2 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid #dddddd;
-            text-align: left;
-            padding: 8px;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        .txt {
-            font-weight: bold;
-            font-size: 32px;
-        }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
 
-<div class="container">
-    <div class="txt">addresses</div>
+<nav class="navbar navbar-dark bg-dark mb-4">
+  <div class="container">
+    <span class="fw-bolder navbar-brand mb-0 h1 text-white">ADDRESS</span>
+  </div>
+</nav>
+
+<div class="container my-5">
+    <div class="txt text-center fw-bolder display-6 mb-4">ADDRESS IDs</div>
 
     <?php if ($result->num_rows > 0): ?>
-        <table>
-            <thead>
+        <table class="table table-striped table-bordered table-hover">
+            <thead class="table-dark">
                 <tr>
                     <th>Address ID</th>
                     <th>User Info ID</th>
@@ -59,8 +36,7 @@ $result = $conn->query($sql);
                 </tr>
             </thead>
             <tbody>
-                <?php
-                while($row = $result->fetch_assoc()): ?>
+                <?php while($row = $result->fetch_assoc()): ?>
                     <tr>
                         <td><?php echo htmlspecialchars($row['addressID']); ?></td>
                         <td><?php echo htmlspecialchars($row['userInfoID']); ?></td>
@@ -71,10 +47,12 @@ $result = $conn->query($sql);
             </tbody>
         </table>
     <?php else: ?>
-        <p>No data available in the database.</p>
+        <div class="alert alert-info text-center">No data available in the database.</div>
     <?php endif; ?>
 
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+integrity="sha384-kQv/Rz2ntXW/zSwkkd2MqlvYYHaaIh3im/a4q9nAoY4tsj90ppw+G4H+RtMGN4lY" crossorigin="anonymous"></script>
 </body>
 </html>
