@@ -1,37 +1,29 @@
 <?php
 include 'connect.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['userInfoID']) && isset($_POST['cityID']) && isset($_POST['provinceID'])) {
+
+if (isset($_POST['userInfoID']) && isset($_POST['cityID']) && isset($_POST['provinceID'])) {
     $userInfoID = $_POST['userInfoID'];
     $cityID = $_POST['cityID'];
     $provinceID = $_POST['provinceID'];
-
     $insertQuery = "INSERT INTO addresses (userInfoID, cityID, provinceID)
                     VALUES ('$userInfoID', '$cityID', '$provinceID')";
-
-    if ($conn->query($insertQuery) === TRUE) {
-        header("Location: " . $_SERVER['PHP_SELF']);
-        exit();
-    } else {
-        echo "<div class='alert alert-danger text-center'>Error: " . $conn->error . "</div>";
-    }
+    executeQuery($insertQuery);
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit();
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['deleteAddressID'])) {
-    $deleteAddressID = $_POST['deleteAddressID'];
 
-    $deleteQuery = "DELETE FROM addresses WHERE addressID = '$deleteAddressID'";
-
-    if ($conn->query($deleteQuery) === TRUE) {
-        header("Location: " . $_SERVER['PHP_SELF']);
-        exit();
-    } else {
-        echo "<div class='alert alert-danger text-center'>Error: " . $conn->error . "</div>";
-    }
+if (isset($_POST['deleteAddressID'])) {
+    $deleteID = $_POST['deleteAddressID'];
+    $deleteQuery = "DELETE FROM addresses WHERE addressID = '$deleteID'";
+    executeQuery($deleteQuery);
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit();
 }
 
-$sql = "SELECT * FROM addresses";
-$result = $conn->query($sql);
+$query = "SELECT * FROM addresses";
+$result = $conn->query($query);
 ?>
 
 <!DOCTYPE html>
