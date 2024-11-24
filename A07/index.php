@@ -41,6 +41,14 @@ if (isset($_GET['editAddressID'])) {
     $editData = null;
 }
 
+if (isset($_POST['deleteAddressID'])) {
+    $deleteID = $_POST['deleteAddressID'];
+    $deleteQuery = "DELETE FROM addresses WHERE addressID = '$deleteID'";
+    executeQuery($deleteQuery);
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit();
+}
+
 $query = "SELECT * FROM addresses";
 $result = $conn->query($query);
 ?>
