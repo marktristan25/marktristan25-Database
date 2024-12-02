@@ -34,8 +34,8 @@ if (isset($_POST['btnSubmit'])) {
 if (isset($_GET['editAddressID'])) {
     $editID = $_GET['editAddressID'];
     $editQuery = "SELECT * FROM addresses WHERE addressID = '$editID'";
-    $editResult = $conn->query($editQuery);
-    $editData = $editResult->fetch_assoc();
+    executeQuery($editQuery);
+
 
 } else {
     $editData = null;
@@ -50,7 +50,7 @@ if (isset($_POST['deleteAddressID'])) {
 }
 
 $query = "SELECT * FROM addresses";
-$result = $conn->query($query);
+$result = executeQuery($query);
 ?>
 
 <!DOCTYPE html>
@@ -75,7 +75,7 @@ $result = $conn->query($query);
     <div class="container my-5">
         <div class="txt text-center fw-bolder display-6 mb-4">ADDRESS IDs</div>
 
-        <?php if ($result->num_rows > 0): ?>
+        <?php if (mysqli_num_rows($result) > 0): ?>
             <table class="table table-striped table-bordered table-hover">
                 <thead class="table-dark">
                     <tr>
@@ -87,7 +87,7 @@ $result = $conn->query($query);
                     </tr>
                 </thead>
                 <tbody>
-                    <?php while ($row = $result->fetch_assoc()): ?>
+                    <?php while ($row = mysqli_fetch_assoc($result)): ?>
                         <tr>
                             <td><?php echo htmlspecialchars($row['addressID']); ?></td>
                             <td><?php echo htmlspecialchars($row['userInfoID']); ?></td>
